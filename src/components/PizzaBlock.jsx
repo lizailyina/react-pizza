@@ -1,23 +1,42 @@
 import React from 'react'
 
-export const PizzaBlock = () => {
+export const PizzaBlock = ({
+  imageUrl,
+  title,
+  types,
+  sizes,
+  price,
+  category,
+  rating
+}) => {
+
+  const typeItems = ['thin', 'traditional']
+
+  const [type, setType] = React.useState(types[0]);
+  const [size, setSize] = React.useState(sizes[0]);
+
   return (
     <div class="pizza-block">
       <img
         class="pizza-block__image"
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+        src={imageUrl}
         alt="Pizza"
       />
-      <h4 class="pizza-block__title">Чизбургер-пицца</h4>
+      <h4 class="pizza-block__title">{title}</h4>
       <div class="pizza-block__selector">
         <ul>
-          <li class="active">тонкое</li>
-          <li>традиционное</li>
+          {types.map((item) => (
+            <li className={type === item ? "active" : ""}
+              key={item}
+              onClick={() => setType(item)}>{typeItems[item]}</li>
+          ))}
         </ul>
         <ul>
-          <li class="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {sizes.map((item) => (
+            <li className={size === item ? "active" : ""}
+              key={item}
+              onClick={() => setSize(item)}>{item} cm.</li>
+          ))}
         </ul>
       </div>
       <div class="pizza-block__bottom">
@@ -39,6 +58,6 @@ export const PizzaBlock = () => {
           <i>2</i>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const categories = ["All", "kek", "Vegan", "Grill", "Hot", "Closed"]
+const categories = ["All", "Meat", "Vegan", "Grill", "Hot", "Closed"]
 
 export const Categories = () => {
 

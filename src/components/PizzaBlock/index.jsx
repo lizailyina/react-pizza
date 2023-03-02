@@ -16,14 +16,14 @@ export const PizzaBlock = ({
   const [size, setSize] = React.useState(sizes[0]);
 
   return (
-    <div class="pizza-block">
+    <div className="pizza-block">
       <img
-        class="pizza-block__image"
+        className="pizza-block__image"
         src={imageUrl}
         alt="Pizza"
       />
-      <h4 class="pizza-block__title">{title}</h4>
-      <div class="pizza-block__selector">
+      <h4 className="pizza-block__title">{title}</h4>
+      <div className="pizza-block__selector">
         <ul>
           {types.map((item) => (
             <li className={type === item ? "active" : ""}
@@ -39,9 +39,9 @@ export const PizzaBlock = ({
           ))}
         </ul>
       </div>
-      <div class="pizza-block__bottom">
-        <div class="pizza-block__price">от 395 ₽</div>
-        <div class="button button--outline button--add">
+      <div className="pizza-block__bottom">
+        <div className="pizza-block__price">от 395 ₽</div>
+        <div className="button button--outline button--add">
           <svg
             width="12"
             height="12"

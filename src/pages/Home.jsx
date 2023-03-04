@@ -11,13 +11,12 @@ export const Home = () => {
   const [items, setItems] = React.useState([]);
 
   const [activeCategory, setActiveCategory] = React.useState(0);
-  const [activeSortType, setActiveSortType] = React.useState('rating')
-
-
+  const [activeSortType, setActiveSortType] = React.useState('rating');
+  const [sortDirection, setSortDirection] = React.useState('asc');
 
   React.useEffect(() => {
     setIsLoading(true);
-    let link = `https://63ffec509f84491029866878.mockapi.io/items?sortBy=${activeSortType}`;
+    let link = `https://63ffec509f84491029866878.mockapi.io/items?sortBy=${activeSortType}&order=${sortDirection}`;
     if (activeCategory > 0) {
       link += `&category=${activeCategory}`;
     }
@@ -29,14 +28,18 @@ export const Home = () => {
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [activeSortType, activeCategory])
+  }, [activeSortType, activeCategory, sortDirection])
 
   return (
     <div className="content">
       <div className="container">
         <div className="content__top">
           <Categories active={activeCategory} onClick={(val) => setActiveCategory(val)} />
-          <Sort active={activeSortType} onClick={(val) => setActiveSortType(val)} />
+          <Sort active={activeSortType}
+            onClickType={(val) => setActiveSortType(val)}
+            onClickDirection={() => setSortDirection((prev) => (prev == 'asc' ? 'desc' : 'asc'))
+            }
+            sortDirection={sortDirection} />
         </div>
         <h2 className="content__title">All pizzas</h2>
         <div className="content__items">

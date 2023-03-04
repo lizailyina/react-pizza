@@ -5,9 +5,7 @@ export const PizzaBlock = ({
   title,
   types,
   sizes,
-  price,
-  category,
-  rating
+  price
 }) => {
 
   const typeItems = ['thin', 'traditional']
@@ -40,7 +38,7 @@ export const PizzaBlock = ({
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от 395 ₽</div>
+        <div className="pizza-block__price">от {price} ₽</div>
         <div className="button button--outline button--add">
           <svg
             width="12"

@@ -12,7 +12,7 @@ export const Sort = ({ active, onClickType, onClickDirection, sortDirection }) =
       <div className="sort__label">
         <div onClick={() => onClickDirection()}>
           {
-            sortDirection == 'desc' ?
+            sortDirection === 'desc' ?
               <TiArrowSortedDown />
               :
               <TiArrowSortedUp />

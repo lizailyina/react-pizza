@@ -1,5 +1,6 @@
 import React from 'react'
 
+import Pagination from '../components/Pagination'
 import { Categories } from '../components/Categories';
 import { Sort } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
@@ -37,7 +38,7 @@ export const Home = () => {
           <Categories active={activeCategory} onClick={(val) => setActiveCategory(val)} />
           <Sort active={activeSortType}
             onClickType={(val) => setActiveSortType(val)}
-            onClickDirection={() => setSortDirection((prev) => (prev == 'asc' ? 'desc' : 'asc'))
+            onClickDirection={() => setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'))
             }
             sortDirection={sortDirection} />
         </div>
@@ -53,6 +54,7 @@ export const Home = () => {
             ))
           }
         </div>
+        <Pagination />
       </div>
     </div>
   )

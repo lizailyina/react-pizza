@@ -1,0 +1,36 @@
+.root {
+
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+
+
+  ul {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+
+  }
+
+  .button,
+  li {
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: #fe5f1e;
+    border: 1px solid #fe5f1e;
+    color: aliceblue;
+    padding: 15px 20px;
+    transition: 0.2s ease-in-out;
+  }
+
+  li:hover {
+    background-color: aliceblue;
+    color: #fe5f1e;
+  }
+
+  .button:hover {
+    background-color: aliceblue;
+    color: #fe5f1e;
+  }
+
+}

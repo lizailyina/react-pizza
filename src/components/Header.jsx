@@ -12,7 +12,7 @@ export const Header = () => {
             <img width="38" src={LOGO} alt="Pizza logo" />
             <div>
               <h1>React Pizza</h1>
-              <p>самая вкусная пицца во вселенной</p>
+              <p>the tastiest pizza in the universe</p>
             </div>
           </div>
         </Link>

@@ -18,7 +18,7 @@ function App() {
           <Route path='*' element={<NotFoundBlock />} />
         </Routes>
       </div>
-    </div>
+    </div >
   );
 }
 

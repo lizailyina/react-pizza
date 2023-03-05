@@ -6,18 +6,16 @@ import { Sort } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton'
 import { SearchContext } from '../App';
+import { useSelector } from 'react-redux'
 
 export const Home = () => {
+
+  const { activeCategory, activePage, activeSortType, sortDirection } = useSelector((state) => state.filter);
 
   const { activeSearch } = React.useContext(SearchContext);
 
   const [isLoading, setIsLoading] = React.useState(true);
   const [items, setItems] = React.useState([]);
-
-  const [activeCategory, setActiveCategory] = React.useState(0);
-  const [activeSortType, setActiveSortType] = React.useState('rating');
-  const [sortDirection, setSortDirection] = React.useState('asc');
-  const [activePage, setActivePage] = React.useState(0);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -42,12 +40,8 @@ export const Home = () => {
     <div className="content">
       <div className="container">
         <div className="content__top">
-          <Categories active={activeCategory} onClick={(val) => setActiveCategory(val)} />
-          <Sort active={activeSortType}
-            onClickType={(val) => setActiveSortType(val)}
-            onClickDirection={() => setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'))
-            }
-            sortDirection={sortDirection} />
+          <Categories />
+          <Sort />
         </div>
         <h2 className="content__title">All pizzas</h2>
         <div className="content__items">
@@ -61,7 +55,7 @@ export const Home = () => {
             ))
           }
         </div>
-        <Pagination activePage={activePage} setActivePage={setActivePage} />
+        <Pagination />
       </div>
     </div>
   )

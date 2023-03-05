@@ -5,8 +5,11 @@ import { Categories } from '../components/Categories';
 import { Sort } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton'
+import { SearchContext } from '../App';
 
-export const Home = ({ activeSearch, activePage, setActivePage }) => {
+export const Home = () => {
+
+  const { activeSearch } = React.useContext(SearchContext);
 
   const [isLoading, setIsLoading] = React.useState(true);
   const [items, setItems] = React.useState([]);
@@ -14,6 +17,7 @@ export const Home = ({ activeSearch, activePage, setActivePage }) => {
   const [activeCategory, setActiveCategory] = React.useState(0);
   const [activeSortType, setActiveSortType] = React.useState('rating');
   const [sortDirection, setSortDirection] = React.useState('asc');
+  const [activePage, setActivePage] = React.useState(0);
 
   React.useEffect(() => {
     setIsLoading(true);

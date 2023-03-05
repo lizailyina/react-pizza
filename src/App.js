@@ -6,23 +6,23 @@ import { Home } from './pages/Home'
 import { Cart } from './pages/Cart'
 import { NotFoundBlock } from './pages/NotFoundBlock';
 
+export const SearchContext = React.createContext("");
+
 function App() {
 
-  const [activePage, setActivePage] = React.useState(0);
   const [activeSearch, setActiveSearch] = React.useState("");
 
   return (
     <div className="App">
       <div className="wrapper">
-        <Header activeSearch={activeSearch} setActiveSearch={setActiveSearch} />
-        <Routes>
-          <Route path='/' element={<Home
-            activeSearch={activeSearch}
-            activePage={activePage}
-            setActivePage={setActivePage} />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='*' element={<NotFoundBlock />} />
-        </Routes>
+        <SearchContext.Provider value={{ activeSearch, setActiveSearch }}>
+          <Header />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='*' element={<NotFoundBlock />} />
+          </Routes>
+        </SearchContext.Provider>
       </div>
     </div >
   );

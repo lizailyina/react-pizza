@@ -4,7 +4,8 @@ import Search from './Search'
 
 import LOGO from '../assets/img/pizza-logo.svg'
 
-export const Header = ({ activeSearch, setActiveSearch }) => {
+export const Header = () => {
+
   return (
     <div className="header">
       <div className="container">
@@ -17,7 +18,7 @@ export const Header = ({ activeSearch, setActiveSearch }) => {
             </div>
           </div>
         </Link>
-        <Search activeSearch={activeSearch} setActiveSearch={setActiveSearch} />
+        <Search />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>

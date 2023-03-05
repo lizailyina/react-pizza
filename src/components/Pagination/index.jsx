@@ -4,7 +4,7 @@ import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md'
 
 import styles from './Pagination.module.scss';
 
-const index = ({ activePage, setActivePage }) => {
+const Pagination = ({ activePage, setActivePage }) => {
 
   return (
     <div className={styles.root}>
@@ -26,4 +26,4 @@ const index = ({ activePage, setActivePage }) => {
   )
 }
 
-export default index;
+export default Pagination;

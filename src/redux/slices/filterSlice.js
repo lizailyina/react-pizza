@@ -25,10 +25,10 @@ export const filterSlice = createSlice({
       state.activeCategory = action.payload
     },
     setState(state, action) {
-      state.activeCategory = action.payload.activeCategory;
+      state.activeCategory = Number(action.payload.activeCategory);
       state.sortDirection = action.payload.sortDirection;
       state.activeSortType = action.payload.activeSortType;
-      state.activePage = action.payload.activePage;
+      state.activePage = Number(action.payload.activePage);
     }
   },
 })

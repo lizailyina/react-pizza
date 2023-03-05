@@ -4,7 +4,7 @@ import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md'
 
 import styles from './Pagination.module.scss';
 
-const index = () => {
+const index = ({ activePage, setActivePage }) => {
 
   return (
     <div className={styles.root}>
@@ -14,7 +14,7 @@ const index = () => {
       <ul>
         {
           [...Array(3)].map((_, i) =>
-            <li key={i}>
+            <li className={activePage === i ? styles.active : ""} onClick={() => setActivePage(i)} key={i}>
               {i + 1}
             </li>)
         }
@@ -22,7 +22,7 @@ const index = () => {
       <div className={styles.button}>
         <MdKeyboardArrowRight />
       </div>
-    </div>
+    </div >
   )
 }
 

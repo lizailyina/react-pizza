@@ -8,12 +8,18 @@ import { NotFoundBlock } from './pages/NotFoundBlock';
 
 function App() {
 
+  const [activePage, setActivePage] = React.useState(0);
+  const [activeSearch, setActiveSearch] = React.useState("");
+
   return (
     <div className="App">
       <div className="wrapper">
-        <Header />
+        <Header activeSearch={activeSearch} setActiveSearch={setActiveSearch} />
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home
+            activeSearch={activeSearch}
+            activePage={activePage}
+            setActivePage={setActivePage} />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='*' element={<NotFoundBlock />} />
         </Routes>

@@ -6,7 +6,7 @@ import { Sort } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton'
 
-export const Home = () => {
+export const Home = ({ activeSearch, activePage, setActivePage }) => {
 
   const [isLoading, setIsLoading] = React.useState(true);
   const [items, setItems] = React.useState([]);
@@ -17,9 +17,12 @@ export const Home = () => {
 
   React.useEffect(() => {
     setIsLoading(true);
-    let link = `https://63ffec509f84491029866878.mockapi.io/items?sortBy=${activeSortType}&order=${sortDirection}`;
+    let link = `https://63ffec509f84491029866878.mockapi.io/items?p=${activePage + 1}&l=8&sortBy=${activeSortType}&order=${sortDirection}`;
     if (activeCategory > 0) {
       link += `&category=${activeCategory}`;
+    }
+    if (activeSearch) {
+      link += `&title=${activeSearch}`
     }
     console.log(link)
     fetch(link)
@@ -29,7 +32,7 @@ export const Home = () => {
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [activeSortType, activeCategory, sortDirection])
+  }, [activePage, activeSearch, activeSortType, activeCategory, sortDirection])
 
   return (
     <div className="content">
@@ -54,7 +57,7 @@ export const Home = () => {
             ))
           }
         </div>
-        <Pagination />
+        <Pagination activePage={activePage} setActivePage={setActivePage} />
       </div>
     </div>
   )

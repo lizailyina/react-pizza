@@ -14,7 +14,7 @@ const Pagination = () => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.button}>
+      <div className={styles.button} onClick={() => dispatch(setActivePage(Math.max(activePage - 1, 0)))}>
         <MdKeyboardArrowLeft />
       </div>
       <ul>
@@ -25,7 +25,7 @@ const Pagination = () => {
             </li>)
         }
       </ul>
-      <div className={styles.button}>
+      <div className={styles.button} onClick={() => dispatch(setActivePage(Math.min(activePage + 1, 2)))} >
         <MdKeyboardArrowRight />
       </div>
     </div >

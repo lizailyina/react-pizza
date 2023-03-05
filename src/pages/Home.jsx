@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 import Pagination from '../components/Pagination'
 import { Categories } from '../components/Categories';
@@ -7,6 +8,7 @@ import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton'
 import { SearchContext } from '../App';
 import { useSelector } from 'react-redux'
+
 
 export const Home = () => {
 
@@ -26,11 +28,9 @@ export const Home = () => {
     if (activeSearch) {
       link += `&title=${activeSearch}`
     }
-    console.log(link)
-    fetch(link)
-      .then((res) => res.json())
-      .then((items) => {
-        setItems(items)
+    axios.get(link)
+      .then((res) => {
+        setItems(res.data)
         setIsLoading(false);
       })
       .catch((err) => console.log(err));

@@ -12,6 +12,7 @@ export const filterSlice = createSlice({
   initialState,
   reducers: {
     setActivePage(state, action) {
+      console.log(action.payload);
       state.activePage = action.payload
     },
     setActiveSortType(state, action) {

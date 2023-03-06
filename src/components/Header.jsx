@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Search from './Search'
+import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import LOGO from '../assets/img/pizza-logo.svg'
 
 export const Header = () => {
 
+  const { pizzas } = useSelector((state) => state.cart);
   const location = useLocation();
 
   return (
@@ -24,7 +26,7 @@ export const Header = () => {
         {location.pathname === '/' && <Search />}
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>520 ₽</span>
+            <span>{pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.price * obj.count), 0).toFixed(2)} $</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -55,7 +57,7 @@ export const Header = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>3</span>
+            <span>{pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.count), 0)}</span>
           </Link>
         </div>
       </div>

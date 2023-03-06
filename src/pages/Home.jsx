@@ -28,7 +28,7 @@ export const Home = () => {
   const isSearch = React.useRef(false);
 
   React.useEffect(() => {
-    if (isSearch.current) {
+    if (isSearch.current || !window.location.search) {
       setIsLoading(true);
       let link = `https://63ffec509f84491029866878.mockapi.io/items?p=${activePage + 1}&l=8&sortBy=${activeSortType}&order=${sortDirection}`;
       if (activeCategory > 0) {
@@ -44,17 +44,24 @@ export const Home = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, [activePage, activeSearch, activeSortType, activeCategory, sortDirection])
+  }, [isSearch, activePage, activeSearch, activeSortType, activeCategory, sortDirection])
 
   React.useEffect(() => {
     if (isMounted.current) {
-      const query = '?' + qs.stringify({
-        activePage,
-        activeCategory,
-        activeSortType,
-        sortDirection
-      })
-      navigate(query);
+      if (!(activePage === 0
+        && activeCategory === 0
+        && activeSortType === 'rating'
+        && sortDirection === 'desc')) {
+        const query = '?' + qs.stringify({
+          activePage,
+          activeCategory,
+          activeSortType,
+          sortDirection
+        })
+        navigate(query);
+      } else {
+        navigate('/')
+      }
     }
     isMounted.current = true;
   }, [activePage, activeSearch, activeSortType, activeCategory, sortDirection, navigate])
@@ -66,6 +73,7 @@ export const Home = () => {
     }
     isSearch.current = true;
   }, [])
+
 
   return (
     <div className="content">

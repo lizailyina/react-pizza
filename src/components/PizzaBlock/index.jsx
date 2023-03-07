@@ -4,27 +4,30 @@ import { addPizza } from '../../redux/slices/cartSlice';
 import { useDispatch, useSelector } from 'react-redux'
 
 export const typeItems = ['thin', 'traditional']
-
+export const sizeItems = [26, 20, 40];
 
 export const PizzaBlock = ({
   imageUrl,
   title,
   types,
   sizes,
-  price
+  price,
+  prices
 }) => {
 
   const dispatch = useDispatch();
   const { pizzas } = useSelector(state => state.cart);
   const [type, setType] = React.useState(types[0]);
   const [size, setSize] = React.useState(sizes[0]);
+  const [touched, setTouched] = React.useState(false);
 
   const currentPizza = {
     imageUrl,
     title,
     type,
     size,
-    price
+    prices,
+    sizes
   };
 
   const count = pizzas.reduce((sum, obj) => {
@@ -35,7 +38,6 @@ export const PizzaBlock = ({
       return sum;
     }
   }, 0)
-
 
   return (
     <div className="pizza-block">
@@ -50,27 +52,27 @@ export const PizzaBlock = ({
           {types.map((item) => (
             <li className={type === item ? "active" : ""}
               key={item}
-              onClick={() => setType(item)}>{typeItems[item]}</li>
+              onClick={() => { setType(item); setTouched(true) }}>{typeItems[item]}</li>
           ))}
         </ul>
         <ul>
           {sizes.map((item) => (
             <li className={size === item ? "active" : ""}
               key={item}
-              onClick={() => setSize(item)}>{item} cm.</li>
+              onClick={() => { setSize(item); setTouched(true); }}>{sizeItems[item]} cm.</li>
           ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {price.toFixed(2)} $</div>
+        <div className="pizza-block__price">{
+          touched ?
+            `${prices[type * sizes.length + size]?.toFixed(2)}$`
+            :
+            `from ${price.toFixed(2)} $`
+        }
+        </div>
         <div className="button button--outline button--add"
-          onClick={() => dispatch(addPizza({
-            imageUrl,
-            title,
-            type,
-            size,
-            price
-          }))}>
+          onClick={() => dispatch(addPizza(currentPizza))}>
           <svg
             width="12"
             height="12"

@@ -19,6 +19,16 @@ body {
 .content {
   padding: 40px 0;
 
+  &__error {
+    margin: 60px auto;
+    text-align: center;
+
+    p {
+      margin-top: 20px;
+      color: gray;
+    }
+  }
+
   &__title {
     margin: 35px 0;
   }

@@ -26,7 +26,7 @@ export const Header = () => {
         {location.pathname === '/' && <Search />}
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>{pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.price * obj.count), 0).toFixed(2)} $</span>
+            <span>{pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.prices[obj.type * obj.sizes.length + obj.size] * obj.count), 0).toFixed(2)} $</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"

@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import qs from 'qs'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,6 +10,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton'
 import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux'
 import { setState } from '../redux/slices/filterSlice'
+import { fetchPizzas } from '../redux/slices/pizzaSlice'
 
 
 export const Home = () => {
@@ -19,30 +19,16 @@ export const Home = () => {
   const dispatch = useDispatch();
 
   const { activeCategory, activePage, activeSortType, sortDirection } = useSelector((state) => state.filter);
+  const { items, status } = useSelector((state) => state.pizza);
 
   const { activeSearch } = React.useContext(SearchContext);
 
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [items, setItems] = React.useState([]);
   const isMounted = React.useRef(false);
   const isSearch = React.useRef(false);
 
   React.useEffect(() => {
     if (isSearch.current || !window.location.search) {
-      setIsLoading(true);
-      let link = `https://63ffec509f84491029866878.mockapi.io/items?p=${activePage + 1}&l=8&sortBy=${activeSortType}&order=${sortDirection}`;
-      if (activeCategory > 0) {
-        link += `&category=${activeCategory}`;
-      }
-      if (activeSearch) {
-        link += `&title=${activeSearch}`
-      }
-      axios.get(link)
-        .then((res) => {
-          setItems(res.data)
-          setIsLoading(false);
-        })
-        .catch((err) => console.log(err));
+      dispatch(fetchPizzas({ activePage, activeSearch, activeSortType, activeCategory, sortDirection }));
     }
   }, [isSearch, activePage, activeSearch, activeSortType, activeCategory, sortDirection])
 
@@ -75,6 +61,8 @@ export const Home = () => {
   }, [])
 
 
+  // console.log(items);
+
   return (
     <div className="content">
       <div className="container">
@@ -83,18 +71,30 @@ export const Home = () => {
           <Sort />
         </div>
         <h2 className="content__title">All pizzas</h2>
-        <div className="content__items">
-          {isLoading ?
-            [...Array(10)].map((_, index) => (
-              <Skeleton key={index} />
-            ))
+        {
+          status === 'error' ?
+            (<div className="content__error">
+              <h2>Error occured 😕</h2>
+              <p>
+                Sadly we cannot show you pizzas this time due to server error<br />
+                Please, try agiain later.
+              </p>
+            </div>)
             :
-            items.map((obj) => (
-              <PizzaBlock key={obj.id} {...obj} />
-            ))
-          }
-        </div>
-        <Pagination />
+            (<div className="content__items">
+              {status === 'loading' ?
+                [...Array(10)].map((_, index) => (
+                  <Skeleton key={index} />
+                ))
+                :
+                items.map((obj) => (
+                  <PizzaBlock key={obj.id} {...obj} />
+                ))
+              }
+            </div>
+            )
+        }
+        < Pagination />
       </div>
     </div>
   )

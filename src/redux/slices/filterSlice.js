@@ -4,13 +4,17 @@ const initialState = {
   activePage: 0,
   activeSortType: 'rating',
   sortDirection: 'desc',
-  activeCategory: 0
+  activeCategory: 0,
+  activeSearch: ''
 }
 
 export const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
+    setActiveSearch(state, action) {
+      state.activeSearch = action.payload
+    },
     setActivePage(state, action) {
       state.activePage = action.payload
     },
@@ -33,6 +37,6 @@ export const filterSlice = createSlice({
   },
 })
 
-export const { setActivePage, setActiveSortType, setActiveCategory, setSortDirection, setState } = filterSlice.actions
+export const { setActiveSearch, setActivePage, setActiveSortType, setActiveCategory, setSortDirection, setState } = filterSlice.actions
 
 export default filterSlice.reducer

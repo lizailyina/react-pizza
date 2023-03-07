@@ -9,24 +9,19 @@ import { CartEmpty } from './pages/CartEmpty';
 
 import { useSelector } from 'react-redux'
 
-export const SearchContext = React.createContext("");
-
 function App() {
 
-  const [activeSearch, setActiveSearch] = React.useState("");
   const { pizzas } = useSelector((state) => state.cart);
 
   return (
     <div className="App">
       <div className="wrapper">
-        <SearchContext.Provider value={{ activeSearch, setActiveSearch }}>
-          <Header />
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/cart' element={pizzas.length ? <Cart /> : <CartEmpty />} />
-            <Route path='*' element={<NotFoundBlock />} />
-          </Routes>
-        </SearchContext.Provider>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/cart' element={pizzas.length ? <Cart /> : <CartEmpty />} />
+          <Route path='*' element={<NotFoundBlock />} />
+        </Routes>
       </div>
     </div >
   );

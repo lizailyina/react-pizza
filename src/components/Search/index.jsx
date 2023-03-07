@@ -1,16 +1,24 @@
 import React from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { IoMdClose } from 'react-icons/io'
-import { SearchContext } from '../../App'
 import debounce from 'lodash.debounce'
+import { setActiveSearch } from '../../redux/slices/filterSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './Search.module.scss'
 
 const Search = () => {
 
-  const { setActiveSearch } = React.useContext(SearchContext);
+  const { activeSearch } = useSelector((state) => state.filter);
   const [value, setValue] = React.useState("");
   const inputRef = React.useRef();
+
+  const dispatch = useDispatch()
+
+
+  React.useEffect(() => {
+    dispatch(setActiveSearch(""));
+  }, [])
 
   const onClose = () => {
     setActiveSearch("");
@@ -21,7 +29,7 @@ const Search = () => {
 
   const onInputChange = React.useCallback(
     debounce((e) => {
-      setActiveSearch(e.target.value);
+      dispatch(setActiveSearch(e.target.value));
     }, 500), [])
 
 

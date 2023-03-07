@@ -18,10 +18,9 @@ export const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { activeCategory, activePage, activeSortType, sortDirection } = useSelector((state) => state.filter);
+  const { activeSearch, activeCategory, activePage, activeSortType, sortDirection } = useSelector((state) => state.filter);
   const { items, status } = useSelector((state) => state.pizza);
 
-  const { activeSearch } = React.useContext(SearchContext);
 
   const isMounted = React.useRef(false);
   const isSearch = React.useRef(false);

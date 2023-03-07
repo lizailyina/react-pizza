@@ -9,7 +9,10 @@ import LOGO from '../assets/img/pizza-logo.svg'
 export const Header = () => {
 
   const { pizzas } = useSelector((state) => state.cart);
+  const { activeCategory } = useSelector((state) => state.filter);
   const location = useLocation();
+
+  console.log(activeCategory);
 
   return (
     <div className="header">
@@ -23,7 +26,7 @@ export const Header = () => {
             </div>
           </div>
         </Link>
-        {location.pathname === '/' && <Search />}
+        {location.pathname === '/' && !activeCategory && <Search />}
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>{pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.prices[obj.type * obj.sizes.length + obj.size] * obj.count), 0).toFixed(2)} $</span>

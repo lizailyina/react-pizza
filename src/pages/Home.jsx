@@ -28,6 +28,7 @@ export const Home = () => {
 
   React.useEffect(() => {
     if (isSearch.current || !window.location.search) {
+      console.log(activeSearch);
       dispatch(fetchPizzas({ activePage, activeSearch, activeSortType, activeCategory, sortDirection }));
     }
   }, [isSearch, activePage, activeSearch, activeSortType, activeCategory, sortDirection])

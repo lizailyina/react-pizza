@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import LOGO from '../assets/img/pizza-logo.svg'
-import { selectFilter, setActiveSearch } from '../redux/slices/filterSlice'
+import { selectFilter } from '../redux/slices/filterSlice'
 import { selectCart } from '../redux/slices/cartSlice'
 
 export const Header = () => {
@@ -27,7 +27,7 @@ export const Header = () => {
             </div>
           </div>
         </Link>
-        {location.pathname === '/' && !activeCategory && <Search activeSearch={setActiveSearch} />}
+        {location.pathname === '/' && !activeCategory && <Search activeSearch={activeSearch} />}
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>{pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.prices[obj.type * obj.sizes.length + obj.size] * obj.count), 0).toFixed(2)} $</span>

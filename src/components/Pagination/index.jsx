@@ -7,9 +7,8 @@ import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md'
 
 import styles from './Pagination.module.scss';
 
-const Pagination = () => {
+const Pagination = ({ activePage }) => {
 
-  const { activePage } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
   return (

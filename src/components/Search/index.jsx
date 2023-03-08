@@ -7,9 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './Search.module.scss'
 
-const Search = () => {
+const Search = ({ activeSearch }) => {
 
-  const { activeSearch } = useSelector((state) => state.filter);
   const [value, setValue] = React.useState("");
   const inputRef = React.useRef();
 
@@ -21,7 +20,7 @@ const Search = () => {
   }, [])
 
   const onClose = () => {
-    setActiveSearch("");
+    dispatch(setActiveSearch(""));
     setValue("");
     inputRef.current.focus();
   }

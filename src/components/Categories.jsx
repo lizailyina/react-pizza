@@ -5,9 +5,10 @@ import { setActiveCategory } from '../redux/slices/filterSlice'
 
 const categories = ["All", "Meat", "Vegan", "Grill", "Hot", "Closed"]
 
-export const Categories = () => {
+export const Categories = ({ activeCategory }) => {
 
-  const { activeCategory } = useSelector((state) => state.filter)
+  console.log(activeCategory);
+
   const dispatch = useDispatch();
 
   return (

@@ -45,7 +45,7 @@ export const Cart = () => {
           <div className="cart__bottom">
             <div className="cart__bottom-details">
               <span> Number of pizzas: <b>{pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.count), 0)} pcs.</b> </span>
-              <span> Price: <b> {pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.price * obj.count), 0).toFixed(2)} $</b> </span>
+              <span> Price: <b> {pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.prices[obj.type * obj.sizes.length + obj.size] * obj.count), 0).toFixed(2)} $</b> </span>
             </div>
             <div className="cart__bottom-buttons">
               <a href="/" className="button button--outline button--add go-back-btn">

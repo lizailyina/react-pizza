@@ -27,7 +27,6 @@ export const Home = () => {
 
   React.useEffect(() => {
     if (isSearch.current || !window.location.search) {
-      console.log(activeSearch);
       dispatch(fetchPizzas({ activePage, activeSearch, activeSortType, activeCategory, sortDirection }));
     }
   }, [isSearch, activePage, activeSearch, activeSortType, activeCategory, sortDirection])
@@ -60,15 +59,12 @@ export const Home = () => {
     isSearch.current = true;
   }, [])
 
-
-  // console.log(items);
-
   return (
     <div className="content">
       <div className="container">
         <div className="content__top">
-          <Categories />
-          <Sort />
+          <Categories activeCategory={activeCategory} />
+          <Sort activeSortType={activeSortType} sortDirection={sortDirection} />
         </div>
         <h2 className="content__title">All pizzas</h2>
         {
@@ -94,7 +90,7 @@ export const Home = () => {
             </div>
             )
         }
-        < Pagination />
+        < Pagination activePage={activePage} />
       </div>
     </div>
   )

@@ -1,15 +1,13 @@
 import React from 'react'
-import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti'
+import { FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setActiveSortType, setSortDirection } from '../redux/slices/filterSlice'
 
 const sortTypes = ['rating', 'price', 'title']
 
-export const Sort = () => {
+export const Sort = ({ activeSortType, sortDirection }) => {
 
-
-  const { activeSortType, sortDirection } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
@@ -33,9 +31,9 @@ export const Sort = () => {
         <div onClick={() => dispatch(setSortDirection())}>
           {
             sortDirection === 'desc' ?
-              <TiArrowSortedDown />
+              <FaSortAmountDown />
               :
-              <TiArrowSortedUp />
+              <FaSortAmountUp />
           }
         </div>
         <b>Sort by:</b>

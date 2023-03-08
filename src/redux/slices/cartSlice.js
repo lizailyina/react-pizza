@@ -47,6 +47,8 @@ export const filterSlice = createSlice({
   },
 })
 
+export const selectCart = (state) => state.cart;
+
 export const { addPizza, clear, removeAllPizzas, removePizza } = filterSlice.actions
 
 export default filterSlice.reducer

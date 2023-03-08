@@ -8,10 +8,11 @@ import { NotFoundBlock } from './pages/NotFoundBlock';
 import { CartEmpty } from './pages/CartEmpty';
 
 import { useSelector } from 'react-redux'
+import { selectCart } from './redux/slices/cartSlice';
 
 function App() {
 
-  const { pizzas } = useSelector((state) => state.cart);
+  const { pizzas } = useSelector(selectCart);
 
   return (
     <div className="App">

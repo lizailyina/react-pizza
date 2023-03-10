@@ -7,9 +7,8 @@ import { Categories } from '../components/Categories';
 import { Sort } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton'
-import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux'
-import { setState } from '../redux/slices/filterSlice'
+import { selectFilter, setState } from '../redux/slices/filterSlice'
 import { fetchPizzas } from '../redux/slices/pizzaSlice'
 
 
@@ -18,7 +17,8 @@ export const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { activeSearch, activeCategory, activePage, activeSortType, sortDirection } = useSelector((state) => state.filter);
+  const { activeSearch, activeCategory, activePage, activeSortType, sortDirection } = useSelector(selectFilter);
+  //@ts-ignore
   const { items, status } = useSelector((state) => state.pizza);
 
 
@@ -27,6 +27,7 @@ export const Home = () => {
 
   React.useEffect(() => {
     if (isSearch.current || !window.location.search) {
+      //@ts-ignore
       dispatch(fetchPizzas({ activePage, activeSearch, activeSortType, activeCategory, sortDirection }));
     }
   }, [isSearch, activePage, activeSearch, activeSortType, activeCategory, sortDirection])
@@ -83,7 +84,7 @@ export const Home = () => {
                   <Skeleton key={index} />
                 ))
                 :
-                items.map((obj) => (
+                items.map((obj: any) => (
                   <PizzaBlock key={obj.id} {...obj} />
                 ))
               }

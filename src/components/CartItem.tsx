@@ -4,7 +4,17 @@ import { useDispatch } from 'react-redux'
 import { addPizza, removePizza, removeAllPizzas } from '../redux/slices/cartSlice';
 import { typeItems, sizeItems } from './PizzaBlock';
 
-export const CartItem = ({ imageUrl,
+type ICartItem = {
+  imageUrl: string,
+  title: string,
+  type: number,
+  size: number,
+  sizes: number[],
+  prices: number[],
+  count: number
+}
+
+export const CartItem: React.FC<ICartItem> = ({ imageUrl,
   title,
   type,
   size,

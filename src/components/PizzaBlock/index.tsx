@@ -6,7 +6,16 @@ import { useDispatch, useSelector } from 'react-redux'
 export const typeItems = ['thin', 'traditional']
 export const sizeItems = [26, 20, 40];
 
-export const PizzaBlock = ({
+type PizzaBlockItem = {
+  imageUrl: string,
+  title: string,
+  types: number[],
+  sizes: number[],
+  price: number,
+  prices: number[]
+}
+
+export const PizzaBlock: React.FC<PizzaBlockItem> = ({
   imageUrl,
   title,
   types,
@@ -16,6 +25,7 @@ export const PizzaBlock = ({
 }) => {
 
   const dispatch = useDispatch();
+  // @ts-ignore
   const { pizzas } = useSelector(state => state.cart);
   const [type, setType] = React.useState(types[0]);
   const [size, setSize] = React.useState(sizes[0]);
@@ -30,7 +40,7 @@ export const PizzaBlock = ({
     sizes
   };
 
-  const count = pizzas.reduce((sum, obj) => {
+  const count = pizzas.reduce((sum: number, obj: any) => {
     const { count, ...newObj } = obj;
     if (Object.entries(newObj).toString() === Object.entries(currentPizza).toString()) {
       return sum + obj.count;

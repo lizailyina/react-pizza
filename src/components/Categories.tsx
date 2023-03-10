@@ -5,9 +5,12 @@ import { setActiveCategory } from '../redux/slices/filterSlice'
 
 const categories = ["All", "Meat", "Vegan", "Grill", "Hot", "Closed"]
 
-export const Categories = ({ activeCategory }) => {
+type CategoriesItem = {
+  activeCategory: number
+}
 
-  console.log(activeCategory);
+export const Categories: React.FC<CategoriesItem> = ({ activeCategory }) => {
+
 
   const dispatch = useDispatch();
 

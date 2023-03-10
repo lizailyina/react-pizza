@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { setActivePage } from '../../redux/slices/filterSlice';
 
@@ -7,7 +7,11 @@ import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md'
 
 import styles from './Pagination.module.scss';
 
-const Pagination = ({ activePage }) => {
+type PaginationProps = {
+  activePage: number;
+};
+
+const Pagination: React.FC<PaginationProps> = ({ activePage }) => {
 
   const dispatch = useDispatch();
 

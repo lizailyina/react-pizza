@@ -41,7 +41,7 @@ export const filterSlice = createSlice({
         return (Object.entries(newObj).toString() !== Object.entries(action.payload).toString())
       })
     },
-    clear(state, action) {
+    clear(state) {
       state.pizzas = []
     }
   },

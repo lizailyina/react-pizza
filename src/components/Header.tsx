@@ -30,7 +30,7 @@ export const Header = () => {
         {location.pathname === '/' && !activeCategory && <Search activeSearch={activeSearch} />}
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>{pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.prices[obj.type * obj.sizes.length + obj.size] * obj.count), 0).toFixed(2)} $</span>
+            <span>{pizzas.length && pizzas.reduce((sum: number, obj: any) => (sum + obj.prices[obj.type * obj.sizes.length + obj.size] * obj.count), 0).toFixed(2)} $</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -61,7 +61,7 @@ export const Header = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{pizzas.length && pizzas.reduce((sum, obj) => (sum + obj.count), 0)}</span>
+            <span>{pizzas.length && pizzas.reduce((sum: number, obj: any) => (sum + obj.count), 0)}</span>
           </Link>
         </div>
       </div>

@@ -6,15 +6,20 @@ import { setActiveSortType, setSortDirection } from '../redux/slices/filterSlice
 
 const sortTypes = ['rating', 'price', 'title']
 
-export const Sort = ({ activeSortType, sortDirection }) => {
+type SortItem = {
+  activeSortType: string,
+  sortDirection: string
+}
+
+export const Sort: React.FC<SortItem> = ({ activeSortType, sortDirection }) => {
 
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const handleClick = (e) => {
+    const handleClick = (e: any) => {
       if (!e.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }

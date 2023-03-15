@@ -1,9 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { Pizza } from '../../components/PizzaBlock';
+import { FilterState } from './filterSlice';
 
 export const fetchPizzas = createAsyncThunk(
   'pizza/fetchPizzas',
-  async (params) => {
+  async (params: FilterState) => {
     const { activePage, activeSortType, sortDirection, activeCategory, activeSearch } = params;
     let link = `https://63ffec509f84491029866878.mockapi.io/items?p=${activePage + 1}&l=8&sortBy=${activeSortType}&order=${sortDirection}`;
     if (activeCategory > 0) {
@@ -17,7 +19,12 @@ export const fetchPizzas = createAsyncThunk(
   }
 )
 
-const initialState = {
+interface PizzaState {
+  items: Pizza[],
+  status: string;
+}
+
+const initialState: PizzaState = {
   items: [],
   status: ""
 }
@@ -27,19 +34,21 @@ export const pizzaSlice = createSlice({
   initialState,
   reducers: {
   },
-  extraReducers: {
-    [fetchPizzas.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchPizzas.pending, (state: PizzaState) => {
       state.items = [];
       state.status = 'loading';
-    },
-    [fetchPizzas.fulfilled]: (state, action) => {
-      state.items = action.payload;
-      state.status = 'complited';
-    },
-    [fetchPizzas.rejected]: (state) => {
-      state.items = [];
-      state.status = 'error';
-    }
+    })
+
+      .addCase(fetchPizzas.fulfilled, (state: PizzaState, action: PayloadAction<Pizza[]>) => {
+        state.items = action.payload;
+        state.status = 'complited';
+      })
+
+      .addCase(fetchPizzas.rejected, (state: PizzaState) => {
+        state.items = [];
+        state.status = 'error';
+      })
   }
 })
 

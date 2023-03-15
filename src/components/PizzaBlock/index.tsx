@@ -21,7 +21,6 @@ export type Pizza = {
 
 const getCount = (pizzas: Pizza[], currentPizza: CartItemState): number => {
   return pizzas.reduce((sum: number, obj: any) => {
-    console.log(obj, currentPizza);
     if (obj.id === currentPizza.id) {
       return sum + obj.count;
     } else {

@@ -8,7 +8,7 @@ import { Sort } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectFilter, setState } from '../redux/slices/filterSlice'
+import { FilterState, selectFilter, setState } from '../redux/slices/filterSlice'
 import { fetchPizzas } from '../redux/slices/pizzaSlice'
 
 import { Pizza } from '../components/PizzaBlock';
@@ -59,7 +59,7 @@ export const Home = () => {
       dispatch(setState(params));
     }
     isSearch.current = true;
-  }, [dispatch])
+  }, [])
 
   return (
     <div className="content">

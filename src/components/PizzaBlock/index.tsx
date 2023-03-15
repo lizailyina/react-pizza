@@ -2,11 +2,15 @@ import React from 'react'
 
 import { addPizza } from '../../redux/slices/cartSlice';
 import { useDispatch, useSelector } from 'react-redux'
+import { CartItemState } from '../CartItem';
 
 export const typeItems = ['thin', 'traditional']
-export const sizeItems = [26, 20, 40];
+export const sizeItems = [20, 26, 40];
 
-type PizzaBlockItem = {
+export type Pizza = {
+  category: number,
+  rating: number,
+  id: number,
   imageUrl: string,
   title: string,
   types: number[],
@@ -15,7 +19,21 @@ type PizzaBlockItem = {
   prices: number[]
 }
 
-export const PizzaBlock: React.FC<PizzaBlockItem> = ({
+const getCount = (pizzas: Pizza[], currentPizza: CartItemState): number => {
+  return pizzas.reduce((sum: number, obj: any) => {
+    console.log(obj, currentPizza);
+    if (obj.id === currentPizza.id) {
+      return sum + obj.count;
+    } else {
+      return sum;
+    }
+  }, 0)
+}
+
+export const PizzaBlock: React.FC<Pizza> = ({
+  category,
+  rating,
+  id,
   imageUrl,
   title,
   types,
@@ -24,30 +42,33 @@ export const PizzaBlock: React.FC<PizzaBlockItem> = ({
   prices
 }) => {
 
+
   const dispatch = useDispatch();
   // @ts-ignore
   const { pizzas } = useSelector(state => state.cart);
   const [type, setType] = React.useState(types[0]);
   const [size, setSize] = React.useState(sizes[0]);
   const [touched, setTouched] = React.useState(false);
+  const [count, setCount] = React.useState(0);
 
-  const currentPizza = {
+  const currentPizza: CartItemState = {
+    category,
+    rating,
+    id,
+    types,
+    price,
     imageUrl,
     title,
     type,
     size,
     prices,
-    sizes
+    sizes,
+    count: 0
   };
 
-  const count = pizzas.reduce((sum: number, obj: any) => {
-    const { count, ...newObj } = obj;
-    if (Object.entries(newObj).toString() === Object.entries(currentPizza).toString()) {
-      return sum + obj.count;
-    } else {
-      return sum;
-    }
-  }, 0)
+  React.useEffect(() => {
+    setCount(getCount(pizzas, currentPizza));
+  }, [pizzas, getCount])
 
   return (
     <div className="pizza-block">

@@ -19,8 +19,8 @@ export const Sort: React.FC<SortItem> = ({ activeSortType, sortDirection }) => {
   const sortRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const handleClick = (e: any) => {
-      if (!e.composedPath().includes(sortRef.current)) {
+    const handleClick = (e: MouseEvent) => {
+      if (sortRef.current !== null && !e.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     }

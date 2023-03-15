@@ -3,18 +3,23 @@ import { useDispatch } from 'react-redux'
 
 import { addPizza, removePizza, removeAllPizzas } from '../redux/slices/cartSlice';
 import { typeItems, sizeItems } from './PizzaBlock';
+import { Pizza } from './PizzaBlock';
 
-type ICartItem = {
-  imageUrl: string,
-  title: string,
+export type CartItemState = Pizza & {
   type: number,
   size: number,
-  sizes: number[],
-  prices: number[],
   count: number
 }
 
-export const CartItem: React.FC<ICartItem> = ({ imageUrl,
+
+
+export const CartItem: React.FC<CartItemState> = ({
+  category,
+  rating,
+  id,
+  types,
+  price,
+  imageUrl,
   title,
   type,
   size,
@@ -23,13 +28,19 @@ export const CartItem: React.FC<ICartItem> = ({ imageUrl,
   count
 }) => {
 
-  const currentPizza = {
+  const currentPizza: CartItemState = {
+    category,
+    rating,
+    id,
+    types,
+    price,
     imageUrl,
     title,
     type,
     size,
     prices,
-    sizes
+    sizes,
+    count
   };
 
   const dispatch = useDispatch();
@@ -65,7 +76,7 @@ export const CartItem: React.FC<ICartItem> = ({ imageUrl,
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{prices[type * sizes?.length + size].toFixed(2)} $</b>
+        <b>{(prices[type * sizes?.length + size] * count).toFixed(2)} $</b>
       </div>
       <div className="cart__item-remove"
         onClick={() => dispatch(removeAllPizzas(currentPizza))}>

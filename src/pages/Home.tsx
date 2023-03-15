@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectFilter, setState } from '../redux/slices/filterSlice'
 import { fetchPizzas } from '../redux/slices/pizzaSlice'
 
+import { Pizza } from '../components/PizzaBlock';
 
 export const Home = () => {
 
@@ -30,7 +31,7 @@ export const Home = () => {
       //@ts-ignore
       dispatch(fetchPizzas({ activePage, activeSearch, activeSortType, activeCategory, sortDirection }));
     }
-  }, [isSearch, activePage, activeSearch, activeSortType, activeCategory, sortDirection])
+  }, [isSearch, activePage, activeSearch, activeSortType, activeCategory, sortDirection, dispatch])
 
   React.useEffect(() => {
     if (isMounted.current) {
@@ -58,7 +59,7 @@ export const Home = () => {
       dispatch(setState(params));
     }
     isSearch.current = true;
-  }, [])
+  }, [dispatch])
 
   return (
     <div className="content">
@@ -84,7 +85,7 @@ export const Home = () => {
                   <Skeleton key={index} />
                 ))
                 :
-                items.map((obj: any) => (
+                items.map((obj: Pizza) => (
                   <PizzaBlock key={obj.id} {...obj} />
                 ))
               }

@@ -6,12 +6,12 @@ import { CartItem } from '../../components/CartItem'
 import { clear } from '../../redux/slices/cartSlice'
 
 import { CartItemState } from '../../components/CartItem'
-
+import { RootState } from '../../redux/store'
+import { getCartTotal } from '../../utils/getCartTotal'
 
 export const Cart: React.FC = () => {
 
-  //@ts-ignore
-  const { pizzas } = useSelector(state => state.cart)
+  const { pizzas } = useSelector((state: RootState) => state.cart)
   const dispatch = useDispatch()
 
   return (
@@ -48,8 +48,8 @@ export const Cart: React.FC = () => {
           </div>
           <div className="cart__bottom">
             <div className="cart__bottom-details">
-              <span> Number of pizzas: <b>{pizzas.length && pizzas.reduce((sum: number, obj: CartItemState) => (sum + obj.count), 0)} pcs.</b> </span>
-              <span> Price: <b> {pizzas.length && pizzas.reduce((sum: number, obj: CartItemState) => (sum + obj.prices[obj.type * obj.sizes.length + obj.size] * obj.count), 0).toFixed(2)} $</b> </span>
+              <span> Number of pizzas: <b>{getCartTotal(pizzas).number} pcs.</b> </span>
+              <span> Price: <b> {getCartTotal(pizzas).price} $</b> </span>
             </div>
             <div className="cart__bottom-buttons">
               <a href="/" className="button button--outline button--add go-back-btn">

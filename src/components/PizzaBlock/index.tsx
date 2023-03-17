@@ -3,6 +3,7 @@ import React from 'react'
 import { addPizza } from '../../redux/slices/cartSlice';
 import { useDispatch, useSelector } from 'react-redux'
 import { CartItemState } from '../CartItem';
+import { RootState } from '../../redux/store'
 
 export const typeItems = ['thin', 'traditional']
 export const sizeItems = [20, 26, 40];
@@ -43,8 +44,7 @@ export const PizzaBlock: React.FC<Pizza> = ({
 
 
   const dispatch = useDispatch();
-  // @ts-ignore
-  const { pizzas } = useSelector(state => state.cart);
+  const { pizzas } = useSelector((state: RootState) => state.cart);
   const [type, setType] = React.useState(types[0]);
   const [size, setSize] = React.useState(sizes[0]);
   const [touched, setTouched] = React.useState(false);

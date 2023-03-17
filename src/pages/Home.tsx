@@ -8,19 +8,19 @@ import { Sort } from '../components/Sort';
 import { PizzaBlock } from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton'
 import { useSelector, useDispatch } from 'react-redux'
-import { FilterState, selectFilter, setState } from '../redux/slices/filterSlice'
+import { selectFilter, setState } from '../redux/slices/filterSlice'
 import { fetchPizzas } from '../redux/slices/pizzaSlice'
 
 import { Pizza } from '../components/PizzaBlock';
+import { AppDispatch, RootState } from '../redux/store';
 
 export const Home = () => {
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const { activeSearch, activeCategory, activePage, activeSortType, sortDirection } = useSelector(selectFilter);
-  //@ts-ignore
-  const { items, status } = useSelector((state) => state.pizza);
+  const { items, status } = useSelector((state: RootState) => state.pizza);
 
 
   const isMounted = React.useRef(false);
@@ -28,30 +28,26 @@ export const Home = () => {
 
   React.useEffect(() => {
     if (isSearch.current || !window.location.search) {
-      //@ts-ignore
       dispatch(fetchPizzas({ activePage, activeSearch, activeSortType, activeCategory, sortDirection }));
     }
   }, [isSearch, activePage, activeSearch, activeSortType, activeCategory, sortDirection, dispatch])
 
   React.useEffect(() => {
-    if (isMounted.current) {
-      if (!(activePage === 0
-        && activeCategory === 0
-        && activeSortType === 'rating'
-        && sortDirection === 'desc')) {
-        const query = '?' + qs.stringify({
-          activePage,
-          activeCategory,
-          activeSortType,
-          sortDirection
-        })
-        navigate(query);
-      } else {
-        navigate('/')
-      }
+    if (!(activePage === 0
+      && activeCategory === 0
+      && activeSortType === 'rating'
+      && sortDirection === 'desc')) {
+      const query = '?' + qs.stringify({
+        activePage,
+        activeCategory,
+        activeSortType,
+        sortDirection
+      })
+      navigate(query);
+    } else {
+      navigate('/')
     }
-    isMounted.current = true;
-  }, [activePage, activeSearch, activeSortType, activeCategory, sortDirection, navigate])
+  }, [activePage, activeSearch, activeSortType, activeCategory, sortDirection, navigate]);
 
   React.useEffect(() => {
     if (window.location.search) {

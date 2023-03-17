@@ -7,12 +7,22 @@ import { useLocation } from 'react-router-dom'
 import LOGO from '../assets/img/pizza-logo.svg'
 import { selectFilter } from '../redux/slices/filterSlice'
 import { selectCart } from '../redux/slices/cartSlice'
+import { getCartTotal } from '../utils/getCartTotal'
+import pizzaSlice from '../redux/slices/pizzaSlice'
 
 export const Header = () => {
 
   const { pizzas } = useSelector(selectCart);
   const { activeCategory, activeSearch } = useSelector(selectFilter);
   const location = useLocation();
+  const isMounted = React.useRef(false);
+
+  React.useEffect(() => {
+    if (isMounted) {
+      window.localStorage.setItem("cart", JSON.stringify(pizzas));
+    }
+    isMounted.current = true;
+  }, [pizzas])
 
 
   return (
@@ -30,7 +40,7 @@ export const Header = () => {
         {location.pathname === '/' && !activeCategory && <Search activeSearch={activeSearch} />}
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>{pizzas.length && pizzas.reduce((sum: number, obj: any) => (sum + obj.prices[obj.type * obj.sizes.length + obj.size] * obj.count), 0).toFixed(2)} $</span>
+            <span>{getCartTotal(pizzas).price} $</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -61,7 +71,7 @@ export const Header = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{pizzas.length && pizzas.reduce((sum: number, obj: any) => (sum + obj.count), 0)}</span>
+            <span>{getCartTotal(pizzas).number}</span>
           </Link>
         </div>
       </div>

@@ -1,13 +1,14 @@
 import { RootState } from '../store'
 import { CartItemState } from '../../components/CartItem'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { getCartItems } from '../../utils/getCartItems'
 
 interface CartState {
   pizzas: CartItemState[]
 }
 
 const initialState: CartState = {
-  pizzas: [],
+  pizzas: getCartItems(),
 }
 
 export const filterSlice = createSlice({
